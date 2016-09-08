@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MyParse">Парсим XML</string>
+    <string name="ApplicationName">Мой проект</string>
+	<string name="xml">Парсить XML</string>
+	<string name="home">Домой</string>
+	<string name="exit">Выйти</string>
+	<string name="place">Место</string>
+	<string name="title">Описание</string>
+	<string name="myName">Лёзов Евгений</string>
+</resources>
