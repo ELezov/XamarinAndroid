@@ -18,7 +18,6 @@ namespace AndroidSQLite
 	[Activity(Label = "AndroidSQLite", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
-		
 		DateTime TimeCreateCache;
 		string xmlUrl = "http://andrei-chernyavskii.name/steam/?t=17acff5c5dad004d67a342f5bbfaa3ef";
 		XmlTextReader reader;
@@ -28,41 +27,32 @@ namespace AndroidSQLite
 		Button btnHome;
 		Button btnExit;
 		ProgressDialog progress;
+		TimeSpan ts;
 
 		protected override void OnCreate(Bundle bundle)
 		{
-			
-			base.OnCreate(bundle);
-			if (bundle != null)
-			{
-				flag = bundle.GetBoolean("flag");
-			}
-			SetContentView(Resource.Layout.Main);
 
-			TextView txtV = FindViewById<TextView>(Resource.Id.txtV);
+			base.OnCreate(bundle);
+
+			SetContentView(Resource.Layout.Main);
 
 			initialize();
 
-			txtV.Text = Convert.ToString(flag);
-			btnParse.Click += delegate 
+			if (bundle != null)
 			{
-				progress = ProgressDialog.Show(this, "Loading...", "Please Wait....", true);
-				new System.Threading.Thread(new ThreadStart(() =>
-				{
-					UpdCache();
-					this.RunOnUiThread(() =>
-					{
-						progress.Dismiss();
-						txtV.Text = Convert.ToString(flag);
-						StartActivity(typeof(MyListViewActivity));
-					});
-				})).Start();
+				flag = bundle.GetBoolean("flag");
+				string Data = bundle.GetString("TimeCreateCache");
+				TimeCreateCache = DateTime.Parse(Data);
+			}
 
+			btnParse.Click += delegate
+			{
+
+				UpdCache();
 			};
 
 			btnHome.Click += delegate
 			{
-				txtV.Text = Convert.ToString(flag);
 				StartActivity(typeof(HomeActivity));
 			};
 
@@ -73,19 +63,13 @@ namespace AndroidSQLite
 
 		}
 
-		//protected override void OnRestoreInstanceState(Bundle savedInstanceState)
-		//{
-		//	flag = savedInstanceState.GetBoolean("flag");
-		//	base.OnRestoreInstanceState(savedInstanceState);
-		//}
-
 		protected override void OnSaveInstanceState(Bundle outState)
 		{
 			outState.PutBoolean("flag", flag);
+			outState.PutString("TimeCreateCache", Convert.ToString(TimeCreateCache));
 
 			base.OnSaveInstanceState(outState);
 		}
-
 
 		public void initialize()
 		{
@@ -116,38 +100,57 @@ namespace AndroidSQLite
 				entry.Appid = int.Parse(element.Element("appid").Value);
 				entry.Title = element.Element("title").Value;
 				db.insertIntoTableEntry(entry);
-
 			}
 		}
 
 		public void MakeCacheFromXML()
 		{
-				//Java.Lang.Thread.Sleep(2000);
-				db.deleteAllTableEntry();
-				XDocument doc = GetXml(xmlUrl);
-				ParseXmlEntry(doc);
+			db.deleteAllTableEntry();
+			XDocument doc = GetXml(xmlUrl);
+			ParseXmlEntry(doc);
+		}
+
+		public void CacheThread()
+		{
+			new System.Threading.Thread(new ThreadStart(() =>
+					  {
+						  //System.Threading.Thread.Sleep(3000);
+						  MakeCacheFromXML();
+						  this.RunOnUiThread(() =>
+							  {
+								  progress.Dismiss();
+								  StartActivity(typeof(MyListViewActivity));
+							  });
+					  })).Start();
 		}
 
 		private void UpdCache()
 		{
-				if (flag == false)
+			progress = ProgressDialog.Show(this, "Loading...", "Please Wait....", true);
+			if (flag == true)
+			{
+				ts = DateTime.Now - TimeCreateCache;
+				int differenceInHours = ts.Hours;
+				if (differenceInHours >= 10)
 				{
-					flag = true;
 					//запоминание времени записи таблицы
 					TimeCreateCache = DateTime.Now;
-					MakeCacheFromXML();
+					CacheThread();
 				}
 				else
 				{
-					TimeSpan ts = DateTime.Now - TimeCreateCache;
-					int differenceInHours = ts.Hours;
-					if (differenceInHours >= 10)
-					{
-						//запоминание времени записи таблицы
-						TimeCreateCache = DateTime.Now;
-						MakeCacheFromXML();
-					}
+					progress.Dismiss();
+					StartActivity(typeof(MyListViewActivity));
 				}
-		}	
+			}
+			else
+			{
+				flag = true;
+				//запоминание времени записи таблицы
+				TimeCreateCache = DateTime.Now;
+				CacheThread();
+			}
+		}
+
 	}
 }
