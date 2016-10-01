@@ -1,19 +1,10 @@
 using System;
 using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using SQLite;
 using Android.Util;
-using AndroidSQLite.Resources.Model;
 using System.Collections.Generic;
 
-namespace AndroidSQLite.Resources.DataHelper
+namespace MyFirstProject
 {
 	[Serializable]
     public class DataBase

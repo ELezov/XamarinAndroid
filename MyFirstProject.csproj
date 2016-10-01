@@ -9,7 +9,7 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AndroidSQLite</RootNamespace>
+    <RootNamespace>MyFirstProject</RootNamespace>
     <AssemblyName>AndroidSQLite</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
@@ -78,13 +78,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Resources\DataHelper\DataBase.cs" />
-    <Compile Include="Resources\ListViewAdapter.cs" />
-    <Compile Include="Resources\Model\Entry.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyListViewActivity.cs" />
     <Compile Include="HomeActivity.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="DataBase.cs" />
+    <Compile Include="ListViewAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />

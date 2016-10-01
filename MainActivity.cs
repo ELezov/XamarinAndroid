@@ -2,18 +2,14 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using System.Collections.Generic;
-using AndroidSQLite.Resources.Model;
-using AndroidSQLite.Resources.DataHelper;
-using AndroidSQLite.Resources;
 using Android.Util;
 using System.Xml;
-using Android.Content;
 using System.Xml.Linq;
 using System.Threading;
-using Java.Lang;
+using Android.Net;
+using Android.Content;
 
-namespace AndroidSQLite
+namespace MyFirstProject
 {
 	[Activity(Label = "AndroidSQLite", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
@@ -23,11 +19,13 @@ namespace AndroidSQLite
 		XmlTextReader reader;
 		DataBase db;
 		bool flag;
+		bool Internet;
 		Button btnParse;
 		Button btnHome;
 		Button btnExit;
 		ProgressDialog progress;
 		TimeSpan ts;
+		TextView txtV;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -35,8 +33,9 @@ namespace AndroidSQLite
 			base.OnCreate(bundle);
 
 			SetContentView(Resource.Layout.Main);
-
+			txtV = FindViewById<TextView>(Resource.Id.txtV);
 			initialize();
+
 
 			if (bundle != null)
 			{
@@ -44,7 +43,7 @@ namespace AndroidSQLite
 				string Data = bundle.GetString("TimeCreateCache");
 				TimeCreateCache = DateTime.Parse(Data);
 			}
-
+			txtV.Text = Convert.ToString(TimeCreateCache);
 			btnParse.Click += delegate
 			{
 
@@ -112,26 +111,38 @@ namespace AndroidSQLite
 
 		public void CacheThread()
 		{
-			new System.Threading.Thread(new ThreadStart(() =>
+			if (!checkInternet())
+			{
+				Toast.MakeText(this, "Отсутствует подключение к интернету. Выполните подключение для обновления информации",
+							   ToastLength.Long).Show();
+				progress.Dismiss();
+				Internet = true;
+				StartActivity(typeof(MyListViewActivity));
+			}
+			else 
+				new System.Threading.Thread(new ThreadStart(() =>
 					  {
 						  //System.Threading.Thread.Sleep(3000);
 						  MakeCacheFromXML();
 						  this.RunOnUiThread(() =>
 							  {
+								  txtV.Text = Convert.ToString(TimeCreateCache);
+								  Internet = false;
 								  progress.Dismiss();
 								  StartActivity(typeof(MyListViewActivity));
 							  });
-					  })).Start();
+					  	})).Start();
 		}
 
 		private void UpdCache()
 		{
 			progress = ProgressDialog.Show(this, "Loading...", "Please Wait....", true);
+
 			if (flag == true)
 			{
 				ts = DateTime.Now - TimeCreateCache;
-				int differenceInHours = ts.Hours;
-				if (differenceInHours >= 10)
+				int differenceInMinutes = ts.Minutes;
+				if (differenceInMinutes >= 10)
 				{
 					//запоминание времени записи таблицы
 					TimeCreateCache = DateTime.Now;
@@ -139,8 +150,14 @@ namespace AndroidSQLite
 				}
 				else
 				{
-					progress.Dismiss();
-					StartActivity(typeof(MyListViewActivity));
+					if (Internet == true)
+						CacheThread();
+					else
+					{
+						txtV.Text = Convert.ToString(TimeCreateCache);
+						progress.Dismiss();
+						StartActivity(typeof(MyListViewActivity));
+					}
 				}
 			}
 			else
@@ -151,6 +168,15 @@ namespace AndroidSQLite
 				CacheThread();
 			}
 		}
+
+		public Boolean checkInternet()
+		{ 
+			ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+			NetworkInfo activeConnection = connectivityManager.ActiveNetworkInfo;
+			bool isOnline = (activeConnection != null) && activeConnection.IsConnected;
+			return isOnline;
+		}
+
 
 	}
 }
