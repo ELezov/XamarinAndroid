@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 
 namespace MyFirstProject
@@ -12,14 +13,25 @@ namespace MyFirstProject
 			base.OnCreate(savedInstanceState);
 
 			SetContentView(Resource.Layout.Home);
-
-			var btnBack = FindViewById<ImageButton>(Resource.Id.imageButton1);
-
-			btnBack.Click += delegate
-			{
-				OnBackPressed();
-			};
 		}
+		public override bool OnCreateOptionsMenu(IMenu menu)
+		{
+			MenuInflater.Inflate(Resource.Menu.actionbar, menu);
+			return base.OnCreateOptionsMenu(menu);
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+				case Resource.Id.back:
+					//Add button clicked
+					OnBackPressed();
+					return true;
+			}
+			return base.OnOptionsItemSelected(item);
+		}
+
 	}
 }
 

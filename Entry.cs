@@ -1,3 +1,4 @@
+using System;
 using SQLite;
 
 namespace MyFirstProject
@@ -9,5 +10,10 @@ namespace MyFirstProject
         public string Title { get; set; }
         public int Place { get; set; }
         public int Appid { get; set; }
+
+		~Entry()
+		{
+			GC.Collect();
+		}
     }
 }

@@ -1,15 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-  <style name="MyTheme" parent="MyTheme.Base">
+	
+<style name="MyTheme" parent="MyTheme.Base">
   </style>
-  <style name="MyTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-    <!--<item name="colorPrimary">@color/primary</item>
-    <item name="colorPrimaryDark">@color/primaryDark</item>
-    <item name="colorAccent">@color/accent</item>-->
+<style name="MyTheme.Base" parent="android:Theme.Material">
+	<!--<item name="colorPrimary">@color/colorPrimary</item>-->
+	<item name="android:actionBarStyle">@style/ActionBar</item>
     <item name="android:windowBackground">@color/window_background</item>
     <item name="windowActionModeOverlay">true</item>
-  </style>
-  <style name="button_text" >
+ </style>
+	
+ <!--ActionBar-->
+ <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+	<item name="android:background">@color/colorPrimary</item>
+    <item name="android:titleTextStyle">@style/MyTextAppearance</item>
+</style>
+<!-- стиль для текста -->
+ <style name="MyTextAppearance" parent="@android:style/TextAppearance">
+    <item name="android:textColor">@color/header_text</item>
+</style>
+
+<!--Text button-->
+ <style name="button_text" >
     <item name="android:layout_width" >fill_parent</item>
     <item name="android:layout_height" >wrap_content</item>
     <item name="android:textColor" >#ffffff</item>
@@ -18,8 +30,8 @@
     <item name="android:textSize" >30dp</item>
     <item name="android:textStyle" >bold</item>
     <item name="android:shadowColor" >#000000</item>
-    <item name="android:shadowDx" >1</item>
-    <item name="android:shadowDy" >1</item>
-    <item name="android:shadowRadius" >2</item>
+    <item name="android:shadowDx" >10</item>
+    <item name="android:shadowDy" >10</item>
+    <item name="android:shadowRadius" >20</item>
   </style>	
 </resources>

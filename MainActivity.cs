@@ -8,10 +8,11 @@ using System.Xml.Linq;
 using System.Threading;
 using Android.Net;
 using Android.Content;
+using Android.Views;
 
 namespace MyFirstProject
 {
-	[Activity(Label = "AndroidSQLite", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity(Label = "MyFirstProject", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
 		DateTime TimeCreateCache;
@@ -31,6 +32,8 @@ namespace MyFirstProject
 		{
 
 			base.OnCreate(bundle);
+
+			ActionBar.Hide();
 
 			SetContentView(Resource.Layout.Main);
 			txtV = FindViewById<TextView>(Resource.Id.txtV);
@@ -61,6 +64,7 @@ namespace MyFirstProject
 			};
 
 		}
+
 
 		protected override void OnSaveInstanceState(Bundle outState)
 		{

@@ -118,6 +118,13 @@ namespace MyFirstProject
 			connection.DeleteAll<Entry>();
 		}
 
+		~DataBase()
+		{
+			GC.Collect();
+		}
+
+
+
 
     }
 }
