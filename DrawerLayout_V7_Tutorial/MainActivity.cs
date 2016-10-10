@@ -18,7 +18,7 @@ using System.Xml.Linq;
 
 namespace MyFirstProject
 {
-	[Activity (Label = "DrawerLayout_V7_Tutorial", MainLauncher = true, Icon = "@drawable/icon", Theme="@style/MyTheme")]
+	[Activity (Label = "@string/app_name", MainLauncher = true)]
 	public class MainActivity : ActionBarActivity
 	{
 		private SupportToolbar mToolbar;

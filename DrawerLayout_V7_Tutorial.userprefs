@@ -1,20 +1,17 @@
 ﻿<Properties StartupConfiguration="{12E45872-B46B-4A96-912B-5459DB21112C}|Default" GitUserInfo="UsingGIT">
-  <MonoDevelop.Ide.ItemProperties.MyFirstProject AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.89.101:5555" />
+  <MonoDevelop.Ide.ItemProperties.MyFirstProject AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Android_Accelerated_x86" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint enabled="false" file="D:\GitHub\Xamarin\XamarinAndroid\DrawerLayout_V7_Tutorial\MainActivity.cs" line="134" column="1" />
-      <Breakpoint enabled="false" file="D:\GitHub\Xamarin\XamarinAndroid\DrawerLayout_V7_Tutorial\MainActivity.cs" line="139" column="36" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="DrawerLayout_V7_Tutorial\Resources\menu\action_menu.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DrawerLayout_V7_Tutorial\Properties\AndroidManifest.xml">
     <Files>
       <File FileName="DrawerLayout_V7_Tutorial\MainActivity.cs" Line="230" Column="41" />
       <File FileName="DrawerLayout_V7_Tutorial\Resources\values-ru\Strings.xml" Line="19" Column="118" />
       <File FileName="DrawerLayout_V7_Tutorial\Resources\values\Strings.xml" Line="14" Column="33" />
-      <File FileName="XamarinAndroid Status" />
-      <File FileName="DrawerLayout_V7_Tutorial\Resources\menu\action_menu.xml" Line="17" Column="19" />
+      <File FileName="DrawerLayout_V7_Tutorial\Resources\menu\action_menu.xml" Line="17" Column="30" />
+      <File FileName="DrawerLayout_V7_Tutorial\Properties\AndroidManifest.xml" Line="7" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
 </Properties>
