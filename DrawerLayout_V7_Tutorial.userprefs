@@ -1,17 +1,20 @@
-﻿<Properties StartupConfiguration="{12E45872-B46B-4A96-912B-5459DB21112C}|Default">
-  <MonoDevelop.Ide.ItemProperties.MyFirstProject AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.63.101:5555" />
+﻿<Properties StartupConfiguration="{12E45872-B46B-4A96-912B-5459DB21112C}|Default" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.ItemProperties.MyFirstProject AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.89.101:5555" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint enabled="false" file="D:\GitHub\Xamarin\XamarinAndroid\DrawerLayout_V7_Tutorial\MainActivity.cs" line="134" column="1" />
+      <Breakpoint enabled="false" file="D:\GitHub\Xamarin\XamarinAndroid\DrawerLayout_V7_Tutorial\MainActivity.cs" line="139" column="36" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="XamarinAndroid Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DrawerLayout_V7_Tutorial\Resources\menu\action_menu.xml">
     <Files>
-      <File FileName="DrawerLayout_V7_Tutorial\MainActivity.cs" Line="192" Column="6" />
-      <File FileName="DrawerLayout_V7_Tutorial\Properties\AndroidManifest.xml" Line="8" Column="12" />
-      <File FileName="DrawerLayout_V7_Tutorial\ParseFragment.cs" Line="36" Column="4" />
-      <File FileName="DrawerLayout_V7_Tutorial\HomeFragment.cs" Line="1" Column="1" />
+      <File FileName="DrawerLayout_V7_Tutorial\MainActivity.cs" Line="230" Column="41" />
+      <File FileName="DrawerLayout_V7_Tutorial\Resources\values-ru\Strings.xml" Line="19" Column="118" />
+      <File FileName="DrawerLayout_V7_Tutorial\Resources\values\Strings.xml" Line="14" Column="33" />
       <File FileName="XamarinAndroid Status" />
+      <File FileName="DrawerLayout_V7_Tutorial\Resources\menu\action_menu.xml" Line="17" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
 </Properties>

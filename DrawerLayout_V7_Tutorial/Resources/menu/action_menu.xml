@@ -12,6 +12,10 @@
 		android:icon="@drawable/ic_action_help"
 		android:title="Help"
 		myapp:showAsAction="always"/>-->
+	<item android:id="@+id/action_exit"
+		android:icon="@drawable/ic_exit2"
+		android:title="@string/exit"
+		myapp:showAsAction="always"/>-->
 
 </menu>
 

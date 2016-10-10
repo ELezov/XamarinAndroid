@@ -1102,7 +1102,16 @@ namespace MyFirstProject
 			public const int ic_action_refresh = 2130837556;
 			
 			// aapt resource value: 0x7f020035
-			public const int Icon = 2130837557;
+			public const int ic_exit2 = 2130837557;
+			
+			// aapt resource value: 0x7f020036
+			public const int Icon = 2130837558;
+			
+			// aapt resource value: 0x7f020037
+			public const int logo = 2130837559;
+			
+			// aapt resource value: 0x7f020038
+			public const int monkey = 2130837560;
 			
 			static Drawable()
 			{
@@ -1141,6 +1150,9 @@ namespace MyFirstProject
 			// aapt resource value: 0x7f080032
 			public const int action_context_bar = 2131230770;
 			
+			// aapt resource value: 0x7f08004a
+			public const int action_exit = 2131230794;
+			
 			// aapt resource value: 0x7f080002
 			public const int action_menu_divider = 2131230722;
 			
@@ -1165,8 +1177,8 @@ namespace MyFirstProject
 			// aapt resource value: 0x7f080013
 			public const int beginning = 2131230739;
 			
-			// aapt resource value: 0x7f08003f
-			public const int button1 = 2131230783;
+			// aapt resource value: 0x7f080040
+			public const int button1 = 2131230784;
 			
 			// aapt resource value: 0x7f080029
 			public const int checkbox = 2131230761;
@@ -1186,8 +1198,8 @@ namespace MyFirstProject
 			// aapt resource value: 0x7f08000c
 			public const int disableHome = 2131230732;
 			
-			// aapt resource value: 0x7f080044
-			public const int drawer_layout = 2131230788;
+			// aapt resource value: 0x7f080045
+			public const int drawer_layout = 2131230789;
 			
 			// aapt resource value: 0x7f08001c
 			public const int dropdown = 2131230748;
@@ -1219,20 +1231,23 @@ namespace MyFirstProject
 			// aapt resource value: 0x7f080023
 			public const int image = 2131230755;
 			
-			// aapt resource value: 0x7f080046
-			public const int left_drawer = 2131230790;
+			// aapt resource value: 0x7f08003f
+			public const int imageView1 = 2131230783;
+			
+			// aapt resource value: 0x7f080047
+			public const int left_drawer = 2131230791;
 			
 			// aapt resource value: 0x7f080009
 			public const int listMode = 2131230729;
 			
-			// aapt resource value: 0x7f080047
-			public const int listView = 2131230791;
+			// aapt resource value: 0x7f080048
+			public const int listView = 2131230792;
 			
 			// aapt resource value: 0x7f080025
 			public const int list_item = 2131230757;
 			
-			// aapt resource value: 0x7f080045
-			public const int main = 2131230789;
+			// aapt resource value: 0x7f080046
+			public const int main = 2131230790;
 			
 			// aapt resource value: 0x7f080015
 			public const int middle = 2131230741;
@@ -1306,20 +1321,23 @@ namespace MyFirstProject
 			// aapt resource value: 0x7f08000b
 			public const int tabMode = 2131230731;
 			
-			// aapt resource value: 0x7f080040
-			public const int textView11 = 2131230784;
-			
 			// aapt resource value: 0x7f080041
-			public const int textView12 = 2131230785;
+			public const int textView11 = 2131230785;
 			
 			// aapt resource value: 0x7f080042
-			public const int textView13 = 2131230786;
+			public const int textView12 = 2131230786;
+			
+			// aapt resource value: 0x7f080043
+			public const int textView13 = 2131230787;
+			
+			// aapt resource value: 0x7f080049
+			public const int textView30 = 2131230793;
 			
 			// aapt resource value: 0x7f080027
 			public const int title = 2131230759;
 			
-			// aapt resource value: 0x7f080043
-			public const int toolbar = 2131230787;
+			// aapt resource value: 0x7f080044
+			public const int toolbar = 2131230788;
 			
 			// aapt resource value: 0x7f080008
 			public const int up = 2131230728;
@@ -1475,9 +1493,6 @@ namespace MyFirstProject
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0a0016
-			public const int MyParse = 2131361814;
-			
 			// aapt resource value: 0x7f0a0000
 			public const int abc_action_bar_home_description = 2131361792;
 			
@@ -1526,41 +1541,56 @@ namespace MyFirstProject
 			// aapt resource value: 0x7f0a000f
 			public const int abc_toolbar_collapse_description = 2131361807;
 			
-			// aapt resource value: 0x7f0a0011
-			public const int app_name = 2131361809;
-			
-			// aapt resource value: 0x7f0a0013
-			public const int closeDrawer = 2131361811;
+			// aapt resource value: 0x7f0a0010
+			public const int app_name = 2131361808;
 			
 			// aapt resource value: 0x7f0a0019
-			public const int exit = 2131361817;
-			
-			// aapt resource value: 0x7f0a0010
-			public const int hello = 2131361808;
-			
-			// aapt resource value: 0x7f0a0018
-			public const int home = 2131361816;
-			
-			// aapt resource value: 0x7f0a0015
-			public const int homeFr = 2131361813;
-			
-			// aapt resource value: 0x7f0a001c
-			public const int myName = 2131361820;
+			public const int buttonTest = 2131361817;
 			
 			// aapt resource value: 0x7f0a0012
-			public const int openDrawer = 2131361810;
+			public const int closeDrawer = 2131361810;
 			
-			// aapt resource value: 0x7f0a0014
-			public const int parseFr = 2131361812;
+			// aapt resource value: 0x7f0a0015
+			public const int exit = 2131361813;
 			
 			// aapt resource value: 0x7f0a001a
-			public const int place = 2131361818;
+			public const int fproject = 2131361818;
 			
-			// aapt resource value: 0x7f0a001b
-			public const int title = 2131361819;
+			// aapt resource value: 0x7f0a0014
+			public const int homeFr = 2131361812;
+			
+			// aapt resource value: 0x7f0a001e
+			public const int load = 2131361822;
+			
+			// aapt resource value: 0x7f0a0018
+			public const int myName = 2131361816;
+			
+			// aapt resource value: 0x7f0a001c
+			public const int no = 2131361820;
+			
+			// aapt resource value: 0x7f0a0011
+			public const int openDrawer = 2131361809;
+			
+			// aapt resource value: 0x7f0a0013
+			public const int parseFr = 2131361811;
+			
+			// aapt resource value: 0x7f0a0016
+			public const int place = 2131361814;
 			
 			// aapt resource value: 0x7f0a0017
-			public const int xml = 2131361815;
+			public const int title = 2131361815;
+			
+			// aapt resource value: 0x7f0a001f
+			public const int wait = 2131361823;
+			
+			// aapt resource value: 0x7f0a001d
+			public const int wantToExit = 2131361821;
+			
+			// aapt resource value: 0x7f0a0020
+			public const int withoutInternet = 2131361824;
+			
+			// aapt resource value: 0x7f0a001b
+			public const int yes = 2131361819;
 			
 			static String()
 			{

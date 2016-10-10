@@ -1,16 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">MyFirstProject</string>
 	<string name="openDrawer">MyFirstProject</string>
 	<string name="closeDrawer">MyFirstProject</string>
 	<string name="parseFr">Parse</string>
 	<string name="homeFr">Home</string>
-	<string name="MyParse">This is my XML PARSE!</string>
-	<string name="xml">XML Parsing</string>
-	<string name="home">Home</string>
 	<string name="exit">Exit</string>
 	<string name="place">Place</string>
 	<string name="title">Title</string>
 	<string name="myName">Eugen Lezov</string>
+	<string name="buttonTest">Button Test</string>
+	<string name="fproject">My First Project</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="wantToExit">Are you sure you want to exit?</string>
+	<string name="load">Loading...</string>
+	<string name="wait">Please Wait....</string>
+	<string name="withoutInternet">Internet connection lost connect to update information</string>
 </resources>

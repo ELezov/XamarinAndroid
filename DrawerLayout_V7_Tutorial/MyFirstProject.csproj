@@ -88,10 +88,15 @@
     <AndroidResource Include="Resources\layout\homefragment.axml" />
     <AndroidResource Include="Resources\layout\parsefragment.axml" />
     <AndroidResource Include="Resources\layout\list_view_dataTemplate.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_exit2.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\monkey.png" />
+    <AndroidResource Include="Resources\values-ru\Strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Resources\menu\" />
+    <Folder Include="Resources\values-ru\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">

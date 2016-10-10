@@ -40,9 +40,8 @@ namespace MyFirstProject
 		TimeSpan ts;
 		int check = 0;
 
-		Android.Support.V4.App.FragmentTransaction tx;
+		private Toast backtoast;
 
-		
 		private ArrayAdapter mLeftAdapter;
 		
 		private List<string> mLeftDataSet;
@@ -50,13 +49,10 @@ namespace MyFirstProject
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-	
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
-
 			initialize();
-
 
 			if (bundle != null)
 			{
@@ -64,29 +60,27 @@ namespace MyFirstProject
 				string Data = bundle.GetString("TimeCreateCache");
 				TimeCreateCache = DateTime.Parse(Data);
 				check = bundle.GetInt("check");
-
-				//homeFragment = SupportFragmentManager.GetFragment(bundle,"home");
-				//parseFragment= SupportFragmentManager.GetFragment(bundle, "parse");
 			}
 
 			mToolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar);
 			mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			mLeftDrawer = FindViewById<ListView>(Resource.Id.left_drawer);
 			homeFragment = new HomeFragment();
-
 			parseFragment = new ParseFragment();
-			mStackFragments = new Stack<SupportFragment>();
-		
 
 			mLeftDrawer.Tag = 0;
-			
 
 			SetSupportActionBar(mToolbar);
 			SupportActionBar.SetTitle(Resource.String.app_name);
-		
+
+			String parse = GetString(Resource.String.parseFr);
+			String home = GetString(Resource.String.homeFr);
+			String exit = GetString(Resource.String.exit);
+
 			mLeftDataSet = new List<string>();
-			mLeftDataSet.Add ("Home");
-			mLeftDataSet.Add ("Parse");
+			mLeftDataSet.Add (home);
+			mLeftDataSet.Add (parse);
+			mLeftDataSet.Add (exit);
 			mLeftAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, mLeftDataSet);
 			mLeftDrawer.Adapter = mLeftAdapter;
 			mLeftDrawer.ItemClick+= MenuListView_ItemClick;
@@ -98,35 +92,35 @@ namespace MyFirstProject
 				Resource.String.closeDrawer		//Closed Message
 			);
 
-
-
 			mDrawerLayout.SetDrawerListener(mDrawerToggle);
 			SupportActionBar.SetHomeButtonEnabled(true);
 			SupportActionBar.SetDisplayShowTitleEnabled(true);
 			mDrawerToggle.SyncState();
 
-			tx = SupportFragmentManager.BeginTransaction();
+			//Check fragment after rotation
+			if (check == 2)
+				ShowFragment(parseFragment);
+			else
+				ShowFragment(homeFragment);
 
-			tx.Add(Resource.Id.main, homeFragment,"home");
-			tx.Add(Resource.Id.main, parseFragment,"parse");
-			tx.Hide(parseFragment); 
-
-			mCurrentFragment = homeFragment;
-			tx.Commit();
 		}
 
 		void MenuListView_ItemClick (object sender, AdapterView.ItemClickEventArgs e)
 		{
-			Android.Support.V4.App.Fragment fragment = null;
-
+			//Android.Support.V4.App.Fragment fragment = null;
 			switch (e.Id)
 			{
 			case 0:
+				check = 1;
 				ShowFragment(homeFragment);
 				break;
 			case 1:
-				UpdCache();
 				check = 2;
+				UpdCache();
+				break;
+				
+			case 2:
+				Exit();
 				break;
 			}
 
@@ -141,25 +135,13 @@ namespace MyFirstProject
 			{
 				return;
 			}
-			else
-				if ((fragment == null) || (!fragment.IsVisible))
-			{
-				var trans = SupportFragmentManager.BeginTransaction();
-
-
-				fragment.View.BringToFront();
-				mCurrentFragment.View.BringToFront();
-
-				trans.Hide(mCurrentFragment);
-				trans.Show(fragment);
-				trans.AddToBackStack(null);
-				mStackFragments.Push(mCurrentFragment);
+			var trans = SupportFragmentManager.BeginTransaction();
+				trans.Replace(Resource.Id.main, fragment);
+				trans.AddToBackStack(null);;
 				trans.Commit();
-
 				mCurrentFragment = fragment;
-			}
-
 		}
+
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{		
 			switch (item.ItemId)
@@ -167,12 +149,14 @@ namespace MyFirstProject
 
 			case Android.Resource.Id.Home:
 				//The hamburger icon was clicked which means the drawer toggle will handle the event
-				
-				
 				mDrawerToggle.OnOptionsItemSelected(item);
 				return true;
 
-			default:
+				case Resource.Id.action_exit:
+					Exit();
+				return true;
+
+				default:
 				return base.OnOptionsItemSelected (item);
 			}
 		}
@@ -188,10 +172,6 @@ namespace MyFirstProject
 			outState.PutInt("check", check);
 			outState.PutBoolean("flag", flag);
 			outState.PutString("TimeCreateCache", Convert.ToString(TimeCreateCache));
-			//SupportFragmentManager.PutFragment(outState, "home", homeFragment);
-			//SupportFragmentManager.PutFragment(outState, "parse", parseFragment);
-
-			 
 			base.OnSaveInstanceState(outState);
 		}
 
@@ -246,7 +226,8 @@ namespace MyFirstProject
 		{
 			if (!checkInternet())
 			{
-				Toast.MakeText(this, "Отсутствует подключение к интернету. Выполните подключение для обновления информации",
+				String withoutInternet = GetString(Resource.String.withoutInternet);
+				Toast.MakeText(this, withoutInternet,
 							   ToastLength.Long).Show();
 				progress.Dismiss();
 				Internet = true;
@@ -267,7 +248,12 @@ namespace MyFirstProject
 
 		private void UpdCache()
 		{
-			progress = ProgressDialog.Show(this, "Loading...", "Please Wait....", true);
+			String loading = GetString(Resource.String.load);
+			String wait = GetString(Resource.String.wait);
+
+
+
+			progress = ProgressDialog.Show(this, loading, wait, true);
 
 			if (flag == true)
 			{
@@ -299,6 +285,7 @@ namespace MyFirstProject
 			}
 		}
 
+		//Проверка доступа к сети интернет
 		public Boolean checkInternet()
 		{
 			ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
@@ -306,6 +293,54 @@ namespace MyFirstProject
 			bool isOnline = (activeConnection != null) && activeConnection.IsConnected;
 			return isOnline;
 		}
+
+		//Обработка выхода
+		public void Exit()
+		{
+			// Build the dialog.
+			var builder = new AlertDialog.Builder(this);
+
+			String wantToExit=GetString(Resource.String.wantToExit);
+			builder.SetTitle(wantToExit);
+
+			String yes = GetString(Resource.String.yes);
+			String no = GetString(Resource.String.no);
+			// Create empty event handlers, we will override them manually instead of letting the builder handling the clicks.
+			builder.SetPositiveButton(yes, (EventHandler<DialogClickEventArgs>)null);
+			builder.SetNegativeButton(no, (EventHandler<DialogClickEventArgs>)null);
+			var dialog = builder.Create();
+
+			// Show the dialog. This is important to do before accessing the buttons.
+			dialog.Show();
+
+			// Get the buttons.
+			var yesBtn = dialog.GetButton((int)DialogButtonType.Positive);
+			var noBtn = dialog.GetButton((int)DialogButtonType.Negative);
+
+			// Assign our handlers.
+			yesBtn.Click += (sender, args) =>
+			{
+				// Don't dismiss dialog;
+				Finish();
+			};
+			noBtn.Click += (sender, args) =>
+			{
+				dialog.Dismiss();
+			};
+				
+		}
+
+
+		public override void OnBackPressed()
+		{
+			//FragmentManager.
+			//if (FragmentManager.BackStackEntryCount > 0)
+			//	FragmentManager.PopBackStack();
+			//else
+			Exit();
+		}
+
+
 	}
 }
 

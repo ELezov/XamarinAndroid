@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">MyFirstProject</string>
+	<string name="openDrawer">MyFirstProject</string>
+	<string name="closeDrawer">MyFirstProject</string>
+	<string name="parseFr">Парсить</string>
+	<string name="homeFr">Домой</string>
+	<string name="exit">Выйти</string>
+	<string name="place">Place</string>
+	<string name="title">Title</string>
+	<string name="myName">Евгений Лёзов</string>
+	<string name="buttonTest">Тестовая кнопка</string>
+	<string name="fproject">My First Project</string>
+	<string name="yes">Да</string>
+	<string name="no">Нет</string>
+	<string name="wantToExit">Вы точно хотите выйти?</string>
+	<string name="load">Загрузка...</string>
+	<string name="wait">Пожалуйста подождите....</string>
+	<string name="withoutInternet">Отсутствует подключение к интернету. Выполните подключение для обновления информации.</string>
+</resources>
