@@ -16,16 +16,11 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <!-- The Main Content View
-        <RelativeLayout
+    <!-- The Main Content View-->
+    <!-- <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Support V7 Action Bar Drawer Toggle"
-                android:layout_centerInParent="true" />
-
+			
         </RelativeLayout> -->
         <FrameLayout
             android:id="@+id/main"
@@ -34,12 +29,12 @@
     <!-- The Left Navigation Drawer -->
         <ListView
             android:id="@+id/left_drawer"
-            android:layout_width="240dp"
+            android:layout_width="@dimen/navWidth"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
-            android:divider="#818181"
-            android:dividerHeight="1dp"
-            android:background="#E3F2FD" />
+            android:divider="@color/darkGray"
+            android:dividerHeight="@dimen/margin"
+            android:background="@color/navBackground" />
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

@@ -1,38 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:minWidth="25px"
-    android:minHeight="25px">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ImageView
+        android:layout_marginTop="100dp"
         android:src="@drawable/logo"
-        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:layout_width="250sp"
-        android:layout_height="250sp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
         android:id="@+id/imageView1" />
-    <LinearLayout
+    <TextView
+        android:layout_marginTop="50dp"
+        android:text="@string/fproject"
+        android:textColor="@color/black"
+        android:textSize="@dimen/headText"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:text="@string/fproject"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="@string/myName"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:text="@string/buttonTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button1" />
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 </LinearLayout>

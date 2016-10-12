@@ -11,40 +11,41 @@
         android:layout_height="match_parent"
         android:layout_weight="88"
         android:orientation="vertical"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp">
+        android:gravity="center"
+        android:paddingRight="@dimen/paddingListLR"
+        android:paddingLeft="@dimen/paddingListLR"
+        android:paddingTop="@dimen/paddingListTB"
+        android:paddingBottom="@dimen/paddingListTB">
         <TextView
             android:text="@string/place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView11"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000"
-            android:gravity="center_vertical"
-            android:padding="2dp"
-            android:textSize="18sp" />
+            android:textColor="@color/textColorListView"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textSize="@dimen/textLarge" />
         <TextView
             android:text="Appid"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView12"
-            android:textColor="#000"
-            android:gravity="center_vertical"
-            android:padding="2dp"
-            android:textSize="16sp" />
+            android:textColor="@color/textColorListView"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textSize="@dimen/textMedium" />
         <TextView
             android:text="@string/title"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView13"
-            android:textColor="#000"
-            android:gravity="center_vertical"
-            android:padding="2dp"
-            android:textSize="14sp"
+            android:textColor="@color/textColorListView"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textSize="@dimen/textSmall"
             android:singleLine="true" />
     </LinearLayout>
 </LinearLayout>

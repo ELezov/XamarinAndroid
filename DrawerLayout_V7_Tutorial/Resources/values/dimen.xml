@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <dimen name="minHeight">25dp</dimen>
+    <dimen name="minWidth">25dp</dimen>
+	<dimen name="imageWidth">350dp</dimen>
+	<dimen name="imageHeight">350dp</dimen>
+	<dimen name="headText">20sp</dimen>
+	<dimen name="margin">1dp</dimen>
+	<dimen name="padding">2dp</dimen>
+	<dimen name="navWidth">300dp</dimen>
+	<dimen name="textLarge">18sp</dimen>
+	<dimen name="textMedium">16sp</dimen>
+	<dimen name="textSmall">14sp</dimen>
+	<dimen name="paddingListTB">7dp</dimen>
+	<dimen name="paddingListLR">14dp</dimen>
+</resources>
