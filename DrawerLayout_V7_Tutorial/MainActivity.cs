@@ -9,26 +9,27 @@ using Android.OS;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 using SupportFragment = Android.Support.V4.App.Fragment;
 using Android.Support.V7.App;
-using Android.Support.V4.Widget;
+using Android.Support.V7.Widget;
 using System.Collections.Generic;
 using System.Xml;
 using System.Threading;
 using Android.Net;
 using System.Xml.Linq;
+using Android.Support.V4.Content;
+using Android.Support.V4.Widget;
 
 namespace MyFirstProject
 {
 	[Activity (Label = "@string/app_name", MainLauncher = true)]
-	public class MainActivity : ActionBarActivity
+	public class MainActivity :  AppCompatActivity
 	{
-		private SupportToolbar mToolbar;
-		private MyActionBarDrawerToggle mDrawerToggle;
 		private DrawerLayout mDrawerLayout;
 		private ListView mLeftDrawer;
 		private HomeFragment homeFragment;
 		private ParseFragment parseFragment;
+		public AboutMeFragment aboutMeFragment;
 		private SupportFragment mCurrentFragment = new SupportFragment();
-		private Stack<SupportFragment> mStackFragments;
+		private MyActionBarDrawerToggle ActionDrawerToggle;
 
 		DateTime TimeCreateCache;
 		string xmlUrl = "http://andrei-chernyavskii.name/steam/?t=17acff5c5dad004d67a342f5bbfaa3ef";
@@ -36,11 +37,13 @@ namespace MyFirstProject
 		DataBase db;
 		bool flag;
 		bool Internet;
+		String parse;
+		String home;
+		String exit;
+		String about;
 		ProgressDialog progress;
 		TimeSpan ts;
 		int check = 0;
-
-		private Toast backtoast;
 
 		private ArrayAdapter mLeftAdapter;
 		
@@ -49,10 +52,10 @@ namespace MyFirstProject
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			// Set our view from the "main" layout resource
+
 			SetContentView (Resource.Layout.Main);
 
-			initialize();
+			Initialize();
 
 			if (bundle != null)
 			{
@@ -62,48 +65,38 @@ namespace MyFirstProject
 				check = bundle.GetInt("check");
 			}
 
-			mToolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar);
-			mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-			mLeftDrawer = FindViewById<ListView>(Resource.Id.left_drawer);
-			homeFragment = new HomeFragment();
-			parseFragment = new ParseFragment();
-
-			mLeftDrawer.Tag = 0;
-
-			SetSupportActionBar(mToolbar);
-			SupportActionBar.SetTitle(Resource.String.app_name);
-
-			String parse = GetString(Resource.String.parseFr);
-			String home = GetString(Resource.String.homeFr);
-			String exit = GetString(Resource.String.exit);
-
-			mLeftDataSet = new List<string>();
-			mLeftDataSet.Add (home);
-			mLeftDataSet.Add (parse);
-			mLeftDataSet.Add (exit);
-			mLeftAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, mLeftDataSet);
-			mLeftDrawer.Adapter = mLeftAdapter;
-			mLeftDrawer.ItemClick+= MenuListView_ItemClick;
-
-			mDrawerToggle = new MyActionBarDrawerToggle(
-				this,                           //Host Activity
-				mDrawerLayout,//DrawerLayout
-				Resource.String.openDrawer,		//Opened Message
-				Resource.String.closeDrawer		//Closed Message
-			);
-
-			mDrawerLayout.SetDrawerListener(mDrawerToggle);
-			SupportActionBar.SetHomeButtonEnabled(true);
-			SupportActionBar.SetDisplayShowTitleEnabled(true);
-			mDrawerToggle.SyncState();
-
 			//Check fragment after rotation
 			if (check == 2)
 				ShowFragment(parseFragment);
 			else
-				ShowFragment(homeFragment);
+				if (check == 3)
+					ShowFragment(aboutMeFragment);
+				else 
+					ShowFragment(homeFragment);
 
 		}
+
+		internal class MyActionBarDrawerToggle : ActionBarDrawerToggle
+		{
+			AppCompatActivity owner;
+
+			public MyActionBarDrawerToggle(AppCompatActivity activity, DrawerLayout layout, int openRes, int closeRes)
+				: base(activity, layout, openRes, closeRes)
+			{
+				owner = activity;
+			}
+
+			public override void OnDrawerClosed(View drawerView)
+			{
+				owner.InvalidateOptionsMenu();
+			}
+
+			public override void OnDrawerOpened(View drawerView)
+			{
+				owner.InvalidateOptionsMenu();
+			}
+		}
+
 
 		void MenuListView_ItemClick (object sender, AdapterView.ItemClickEventArgs e)
 		{
@@ -118,26 +111,27 @@ namespace MyFirstProject
 				check = 2;
 				UpdCache();
 				break;
-				
 			case 2:
+				check = 3;
+				ShowFragment(aboutMeFragment);
+				break;
+			case 3:
 				Exit();
 				break;
 			}
 
 			mDrawerLayout.CloseDrawers();
-			mDrawerToggle.SyncState();
-
+			ActionDrawerToggle.SyncState();
 		}
 		private void ShowFragment(SupportFragment fragment)
 		{
-
 			if (fragment.IsVisible)
 			{
 				return;
 			}
 			var trans = SupportFragmentManager.BeginTransaction();
 				trans.Replace(Resource.Id.main, fragment);
-				trans.AddToBackStack(null);;
+				trans.AddToBackStack(null);
 				trans.Commit();
 				mCurrentFragment = fragment;
 		}
@@ -146,18 +140,16 @@ namespace MyFirstProject
 		{		
 			switch (item.ItemId)
 			{
-
-			case Android.Resource.Id.Home:
-				//The hamburger icon was clicked which means the drawer toggle will handle the event
-				mDrawerToggle.OnOptionsItemSelected(item);
-				return true;
-
+				case Android.Resource.Id.Home:
+					ActionDrawerToggle.OnOptionsItemSelected(item);
+					return true;
+						
 				case Resource.Id.action_exit:
 					Exit();
-				return true;
-
+					return true;
+					
 				default:
-				return base.OnOptionsItemSelected (item);
+					return base.OnOptionsItemSelected (item);
 			}
 		}
 			
@@ -178,22 +170,64 @@ namespace MyFirstProject
 		protected override void OnPostCreate (Bundle savedInstanceState)
 		{
 			base.OnPostCreate (savedInstanceState);
-			mDrawerToggle.SyncState();
+			ActionDrawerToggle.SyncState();
 		}
 
 		public override void OnConfigurationChanged (Android.Content.Res.Configuration newConfig)
 		{
 			base.OnConfigurationChanged (newConfig);
-			mDrawerToggle.OnConfigurationChanged(newConfig);
+			ActionDrawerToggle.OnConfigurationChanged(newConfig);
 		}
 
 
-		public void initialize()
+		public void Initialize()
 		{
-			//Create DataBase
+			//Init DataBase
 			db = new DataBase();
 			db.createDataBase();
 			string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+
+			//Init item for menu
+			parse = GetString(Resource.String.parseFr);
+			home = GetString(Resource.String.homeFr);
+			exit = GetString(Resource.String.exit);
+			about = GetString(Resource.String.aboutMe);
+
+			//init Drawer
+			mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+			mLeftDrawer = FindViewById<ListView>(Resource.Id.left_drawer);
+			mLeftDrawer.Tag = 0;
+
+			mLeftDataSet = new List<string>();
+			mLeftDataSet.Add(home);
+			mLeftDataSet.Add(parse);
+			mLeftDataSet.Add(about);
+			mLeftDataSet.Add(exit);
+
+			mLeftAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, mLeftDataSet);
+			mLeftDrawer.Adapter = mLeftAdapter;
+			mLeftDrawer.ItemClick += MenuListView_ItemClick;
+
+			//Init Fragment
+			homeFragment = new HomeFragment();
+			parseFragment = new ParseFragment();
+			aboutMeFragment = new AboutMeFragment();
+
+			//Init ActionBar
+			SupportActionBar.SetTitle(Resource.String.app_name);
+			SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+			SupportActionBar.SetHomeButtonEnabled(true);
+
+			//Init DrawerToggle
+			ActionDrawerToggle = new MyActionBarDrawerToggle(
+				this,
+				mDrawerLayout,
+				Resource.String.openDrawer,
+				Resource.String.closeDrawer
+			);
+
+			mDrawerLayout.AddDrawerListener(ActionDrawerToggle);
+			ActionDrawerToggle.SyncState();
 		}
 
 		private XDocument GetXml(string xmlUrl)
@@ -298,7 +332,7 @@ namespace MyFirstProject
 		public void Exit()
 		{
 			// Build the dialog.
-			var builder = new AlertDialog.Builder(this);
+			var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
 
 			String wantToExit=GetString(Resource.String.wantToExit);
 			builder.SetTitle(wantToExit);
@@ -332,14 +366,17 @@ namespace MyFirstProject
 
 
 		public override void OnBackPressed()
-		{
-			//FragmentManager.
-			//if (FragmentManager.BackStackEntryCount > 0)
-			//	FragmentManager.PopBackStack();
-			//else
-			Exit();
+		{	
+			if (SupportFragmentManager.BackStackEntryCount > 1)
+				SupportFragmentManager.PopBackStack();
+			else
+				Exit();
 		}
 
+		public override void OnRequestPermissionsResult(int requestCode, string[] permissions)
+		{
+			base.OnRequestPermissionsResult(requestCode, permissions);
+		}
 
 	}
 }

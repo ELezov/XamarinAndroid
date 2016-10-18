@@ -5,6 +5,7 @@
 	<string name="closeDrawer">MyFirstProject</string>
 	<string name="parseFr">Парсить</string>
 	<string name="homeFr">Домой</string>
+	<string name="aboutMe">Я</string>
 	<string name="exit">Выйти</string>
 	<string name="place">Place</string>
 	<string name="title">Title</string>
@@ -13,8 +14,14 @@
 	<string name="fproject">My First Project</string>
 	<string name="yes">Да</string>
 	<string name="no">Нет</string>
+	<string name="ok">Okey</string>
 	<string name="wantToExit">Вы точно хотите выйти?</string>
 	<string name="load">Загрузка...</string>
 	<string name="wait">Пожалуйста подождите....</string>
 	<string name="withoutInternet">Отсутствует подключение к интернету. Выполните подключение для обновления информации.</string>
+	<string name="openCamera">Открыть камеру</string>
+	<string name="permision_available_camera">Camera Permission has been granted. Preview can now be opened.</string>
+    <string name="permissions_not_granted">Permissions were not granted.</string>
+    <string name="permission_camera_rationale">Camera permission is needed to show the camera preview.</string>
+	
 </resources>

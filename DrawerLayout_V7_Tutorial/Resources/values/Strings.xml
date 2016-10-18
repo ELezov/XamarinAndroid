@@ -5,6 +5,7 @@
 	<string name="closeDrawer">MyFirstProject</string>
 	<string name="parseFr">Parse</string>
 	<string name="homeFr">Home</string>
+	<string name="aboutMe">About me</string>
 	<string name="exit">Exit</string>
 	<string name="place">Place</string>
 	<string name="title">Title</string>
@@ -12,9 +13,14 @@
 	<string name="buttonTest">Button Test</string>
 	<string name="fproject">My First Project</string>
 	<string name="yes">Yes</string>
+	<string name="ok">Okey</string>
 	<string name="no">No</string>
 	<string name="wantToExit">Are you sure you want to exit?</string>
 	<string name="load">Loading...</string>
 	<string name="wait">Please Wait....</string>
 	<string name="withoutInternet">Internet connection lost connect to update information</string>
+	<string name="openCamera">Open Camera</string>
+	<string name="permision_available_camera">Camera Permission has been granted. Preview can now be opened.</string>
+    <string name="permissions_not_granted">Permissions were not granted.</string>
+    <string name="permission_camera_rationale">Camera permission is needed to show the camera preview.</string>
 </resources>

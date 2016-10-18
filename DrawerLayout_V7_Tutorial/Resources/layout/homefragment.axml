@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
-        android:id="@+id/imageView1" />
+        android:id="@+id/imageView" />
     <TextView
         android:layout_marginTop="50dp"
         android:text="@string/fproject"
