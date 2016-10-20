@@ -29,6 +29,7 @@ namespace MyFirstProject
 		private Java.IO.File _dir;
 		private Java.IO.File _file;
 		private ImageView myPhoto;
+		//Bitmap bitmap;
 		static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
 		static readonly int REQUEST_CAMERA = 0;
 
@@ -59,27 +60,20 @@ namespace MyFirstProject
 			ViewGroup root = (ViewGroup)inflater.Inflate(Resource.Layout.aboutMeFragment, null);
 
 
-
 			myPhoto = (ImageView)root.FindViewById(Resource.Id.imageView1);
 			Button button = (Button)root.FindViewById(Resource.Id.myButton);
 
-			createDirectory();
+			//createDirectory();
 
 			_file = null;
-			_file = new Java.IO.File(
-				Environment
-				.GetExternalStoragePublicDirectory(Environment.DirectoryPictures),
-				"MyFolder/pic.png");
+			_file =new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "avatar.png");
 			if (_file.Exists())
 				myPhoto.SetImageURI(Uri.FromFile(_file));
-			else
-				_file.CreateNewFile();
-			
-			
 
 			button.Click += delegate
 				{
-					SelectImage();//ShowCamera();
+					//SelectImage();
+				ShowCamera();
 
 				};
 
@@ -88,14 +82,11 @@ namespace MyFirstProject
 
 		public void ShowCamera()
 		{
-			// Check if the Camera permission is already available.
 			if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.Camera) != (int)Android.Content.PM.Permission.Granted)
 			{
-				// Camera permission has not been granted
 				RequestCameraPermission();
 			}
 			else {
-				// Camera permissions is already available, show the camera preview.
 				TakePhoto();
 			}
 		}
@@ -140,54 +131,58 @@ namespace MyFirstProject
 		public void TakePhoto()
 		{
 			Intent intent = new Intent(MediaStore.ActionImageCapture);
+			//var imageUri = Uri.FromFile(new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures),"MyFolder/pic.png"));
 
-			if (!_file.Exists())
-				_file.CreateNewFile();
-			//string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal
-			//_file = null;
-			//_file = new Java.IO.File(
-			//	Environment
-			//	.GetExternalStoragePublicDirectory(Environment.DirectoryPictures),
-			//	"MyFolder/pic.png");
-			//if (!_file.Exists())
-			//	_file.CreateNewFile();
-			
-			//_file = new Java.IO.File(_dir.Path + "Pic.jpg");
-			intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(_file));
+			//intent.PutExtra(Android.Provider.MediaStore.ExtraOutput, imageUri);
 			StartActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 		}
 
 		public override void OnActivityResult(int requestCode, int resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
-
+			if (resultCode == 0)
+				return;
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
 			{
 				if (resultCode == -1)
 				{
-					Bitmap bmp = (Bitmap)data.Extras.Get("data");
-					var stream = new MemoryStream();
-
-					bmp.Compress(Bitmap.CompressFormat.Png, 100, stream);
-					byte[] byteArray = stream.ToArray();
-
-					// convert byte array to Bitmap
-
-					Bitmap bitmap = BitmapFactory.DecodeByteArray(byteArray, 0,
-																  byteArray.Length);
+					Bundle extras = data.Extras;
+					Bitmap bmp = (Bitmap)extras.Get("data");
+					Bitmap bitmap=getPictureFromCam(bmp);
 					myPhoto.SetImageBitmap(bitmap);
+					SavePicture(bitmap);
 				}
+
 			}
 		}
 
-		private void createDirectory()
+
+		private Bitmap getPictureFromCam(Bitmap bmp)
 		{
-			_dir = new Java.IO.File(
-				Environment
-				.GetExternalStoragePublicDirectory(Environment.DirectoryPictures),
-				"MyFolder");
-			if (!_dir.Exists())
-				_dir.Mkdirs();
+			var stream = new MemoryStream();
+			bmp.Compress(Bitmap.CompressFormat.Png, 100, stream);
+			byte[] byteArray = stream.ToArray();
+			// convert byte array to Bitmap
+			Bitmap bitmap = BitmapFactory.DecodeByteArray(byteArray, 0,
+													  byteArray.Length);
+			return bitmap;
+		}
+
+
+		private void SavePicture(Bitmap bitmap)
+		{
+			Java.IO.File file = new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures), "avatar.png");
+			try
+			{
+				using (var os = new System.IO.FileStream(file.AbsolutePath, System.IO.FileMode.Create))
+				{
+					bitmap.Compress(Bitmap.CompressFormat.Png, 100, os);
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Console.Write(ex.Message);
+			}
 		}
 
 		private void SelectImage()
@@ -195,43 +190,23 @@ namespace MyFirstProject
 			AlertDialog.Builder alert = new AlertDialog.Builder(Activity);
 			alert.SetTitle("Add photo");
 			alert.SetNeutralButton("Take Photo", (EventHandler<DialogClickEventArgs>)null);
-			//alert.SetNegativeButton("Choose from Gallery", (EventHandler<DialogClickEventArgs>)null);
 			alert.SetPositiveButton("Cancel", (EventHandler<DialogClickEventArgs>)null);
 
 			var dialog = alert.Create();
 			dialog.Show();
 
 			var takePhotoBtn = dialog.GetButton((int)DialogButtonType.Neutral);
-			//var chooseBtn = dialog.GetButton((int)DialogButtonType.Negative);
 			var cancelBtn = dialog.GetButton((int)DialogButtonType.Positive);
 
 			takePhotoBtn.Click += (sender, args) =>
 			{
-				//Intent intent = new Intent(MediaStore.ActionImageCapture);
-				//_file = null;
-				//_file = new Java.IO.File(_dir.Path + "Pic.jpg");
-				//intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(_file));
-				//StartActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 				dialog.Dismiss();
 				ShowCamera();
 			};
-			//chooseBtn.Click += (sender, args) =>
-			//{
-			//	Intent Intent = new Intent();
-			//	Intent.SetType("image/*");
-			//	Intent.SetAction(Intent.ActionGetContent);
-			//	StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-			//	dialog.Dismiss();
-			//};
 			cancelBtn.Click += (sender, args) =>
 			{
 				dialog.Dismiss();
 			};
 		}
-
-
-
-
-
 	}
 }

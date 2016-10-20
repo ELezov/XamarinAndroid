@@ -31,6 +31,9 @@ namespace MyFirstProject
 		private SupportFragment mCurrentFragment = new SupportFragment();
 		private MyActionBarDrawerToggle ActionDrawerToggle;
 
+		ISharedPreferences sPref;
+		String SAVED_TEXT = "saved_text";
+
 		DateTime TimeCreateCache;
 		string xmlUrl = "http://andrei-chernyavskii.name/steam/?t=17acff5c5dad004d67a342f5bbfaa3ef";
 		XmlTextReader reader;
@@ -44,6 +47,7 @@ namespace MyFirstProject
 		ProgressDialog progress;
 		TimeSpan ts;
 		int check = 0;
+
 
 		private ArrayAdapter mLeftAdapter;
 		
@@ -63,6 +67,17 @@ namespace MyFirstProject
 				string Data = bundle.GetString("TimeCreateCache");
 				TimeCreateCache = DateTime.Parse(Data);
 				check = bundle.GetInt("check");
+			}
+
+			if (flag == false)
+			{
+				sPref = GetPreferences(FileCreationMode.Private);
+				string savedText = sPref.GetString(SAVED_TEXT, "");
+				if ((savedText != "")&&(savedText!=null))
+				{
+					TimeCreateCache = DateTime.Parse(savedText);
+					flag = true;
+				}
 			}
 
 			//Check fragment after rotation
@@ -100,7 +115,6 @@ namespace MyFirstProject
 
 		void MenuListView_ItemClick (object sender, AdapterView.ItemClickEventArgs e)
 		{
-			//Android.Support.V4.App.Fragment fragment = null;
 			switch (e.Id)
 			{
 			case 0:
@@ -123,6 +137,7 @@ namespace MyFirstProject
 			mDrawerLayout.CloseDrawers();
 			ActionDrawerToggle.SyncState();
 		}
+
 		private void ShowFragment(SupportFragment fragment)
 		{
 			if (fragment.IsVisible)
@@ -292,8 +307,8 @@ namespace MyFirstProject
 			if (flag == true)
 			{
 				ts = DateTime.Now - TimeCreateCache;
-				int differenceInMinutes = ts.Minutes;
-				if (differenceInMinutes >= 10)
+				int differenceInMinutes = (ts.Days*24 + ts.Hours)*60 + ts.Minutes;
+				if (differenceInMinutes>= 10)
 				{
 					//запоминание времени записи таблицы
 					TimeCreateCache = DateTime.Now;
@@ -373,10 +388,15 @@ namespace MyFirstProject
 				Exit();
 		}
 
-		public override void OnRequestPermissionsResult(int requestCode, string[] permissions)
+		protected override void OnDestroy()
 		{
-			base.OnRequestPermissionsResult(requestCode, permissions);
+			sPref = GetPreferences(FileCreationMode.Private);
+			var ed = sPref.Edit();
+			ed.PutString(SAVED_TEXT, Convert.ToString(TimeCreateCache));
+			ed.Commit();
+			base.OnDestroy();
 		}
+
 
 	}
 }
