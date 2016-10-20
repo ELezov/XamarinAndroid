@@ -131,9 +131,6 @@ namespace MyFirstProject
 		public void TakePhoto()
 		{
 			Intent intent = new Intent(MediaStore.ActionImageCapture);
-			//var imageUri = Uri.FromFile(new Java.IO.File(Environment.GetExternalStoragePublicDirectory(Environment.DirectoryPictures),"MyFolder/pic.png"));
-
-			//intent.PutExtra(Android.Provider.MediaStore.ExtraOutput, imageUri);
 			StartActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 		}
 
