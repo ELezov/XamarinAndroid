@@ -17,6 +17,7 @@ using Android.Net;
 using System.Xml.Linq;
 using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
+using Android.Support.Design.Widget;
 
 namespace MyFirstProject
 {
@@ -47,7 +48,6 @@ namespace MyFirstProject
 		ProgressDialog progress;
 		TimeSpan ts;
 		int check = 0;
-
 
 		private ArrayAdapter mLeftAdapter;
 		
@@ -145,6 +145,9 @@ namespace MyFirstProject
 				return;
 			}
 			var trans = SupportFragmentManager.BeginTransaction();
+			//trans.SetCustomAnimations(Resource.Animation.abc_slide_in_bottom,
+			//                          Resource.Animation.abc_slide_in_top);
+			
 				trans.Replace(Resource.Id.main, fragment);
 				trans.AddToBackStack(null);
 				trans.Commit();

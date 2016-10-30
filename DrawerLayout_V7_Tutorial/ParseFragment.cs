@@ -40,11 +40,26 @@ namespace MyFirstProject
 		{
 			ViewGroup root = (ViewGroup)inflater.Inflate(Resource.Layout.parsefragment, null);
 
-			lstData = (ListView)root.FindViewById(Resource.Id.listView);
+
 			db = new DataBase();
 			lstSource = db.selectTableEntry();
+			TextView txtList = (TextView)root.FindViewById(Resource.Id.EmptyList);
+			string withoutInternet = GetString(Resource.String.withoutInternet);
+			//if (lstSource.Count>0)
+			//{
+			//	lstData = (ListView)root.FindViewById(Resource.Id.listView);
+			//	var adapter = new ListViewAdapter(this.Activity, lstSource);
+			//	lstData.Adapter = adapter;
+			//}
+			//else
+			//{
+			//	txtList.Gravity = GravityFlags.Center;
+			//	txtList.Text = withoutInternet;
+			//}
+			lstData = (ListView)root.FindViewById(Resource.Id.listView);
 			var adapter = new ListViewAdapter(this.Activity, lstSource);
 			lstData.Adapter = adapter;
+
 			return root;
 
 		}

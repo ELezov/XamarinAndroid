@@ -135,11 +135,23 @@
     <AndroidResource Include="Resources\values\dimen.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\layout\aboutMeFragment.axml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_devices_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_home_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_supervisor_account_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\imgBg.png" />
+    <AndroidResource Include="Resources\animator\card_flip_left_enter.xml" />
+    <AndroidResource Include="Resources\animator\card_flip_left_exit.xml" />
+    <AndroidResource Include="Resources\animator\card_flip_right_enter.xml" />
+    <AndroidResource Include="Resources\animator\card_flip_right_exit.xml" />
+    <AndroidResource Include="Resources\values\Integers.xml" />
+    <AndroidResource Include="Resources\animator\slide_in_left.xml" />
+    <AndroidResource Include="Resources\animator\slide_in_right.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Resources\menu\" />
     <Folder Include="Resources\values-ru\" />
+    <Folder Include="Resources\animator\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sqlite-net">

@@ -26,7 +26,6 @@ namespace MyFirstProject
 {
 	public class AboutMeFragment : Android.Support.V4.App.Fragment
 	{
-		private Java.IO.File _dir;
 		private Java.IO.File _file;
 		private ImageView myPhoto;
 		//Bitmap bitmap;
